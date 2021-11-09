@@ -8,7 +8,7 @@ const app = express();
 
 
 const mongoose = require('mongoose');
-const dev_db_url = 'mongodb://localhost/tc-mongo-homework';
+const dev_db_url = 'mongodb+srv://1234qwerty:1234qwerty@cluster0.iajav.mongodb.net/myDatabase?retryWrites=true&w=majority';
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 const dbOptions = { useUnifiedTopology: true, useNewUrlParser: true};
@@ -21,7 +21,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use('/api', api);
+app.use('/api/v2', api);
 
 require('./config/error-handler')(app)
 
