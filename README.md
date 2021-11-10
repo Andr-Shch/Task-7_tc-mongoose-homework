@@ -1,5 +1,5 @@
 # mongo-homework
-
+## base URL - http://localhost:4040/api/v2
 ### Installation
 1. Clone repo
 2. Open project directory
