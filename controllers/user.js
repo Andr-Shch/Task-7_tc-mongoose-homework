@@ -48,9 +48,7 @@ const getUserArticles = async (req, res, next) => {
   try {
     const {userId}=req.params
     const result = await service.getUserArticles(userId)
-    if (result.length<1) {
-      return res.status(200).json(['search results not found'])
-    }
+   
     return res.status(200).json(result)
   } catch (error) {
     next(error)

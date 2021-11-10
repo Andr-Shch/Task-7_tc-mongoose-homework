@@ -34,7 +34,8 @@ async function getArticles (query) {
     }
 
     const articles = await Article.find(query).populate('owner','firstName lastName');
-   
+    
+
     return articles;
 }
 

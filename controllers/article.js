@@ -26,8 +26,10 @@ const updateArticle = async (req, res, next) => {
 async function getArticles(req, res, next) {
   try {
     const query = req.query
-    console.log(query);
     let result = await service.getArticles(query)
+    if(result.length == 0){
+      return res.status(200).json("no search result")
+    }
     return res.status(200).json(result);
   } catch (error) {
     next(error)
@@ -41,7 +43,7 @@ async function deleteArticle(req, res, next) {
   const {articleId} = req.params
 
   try {
-     // const result = await Article.findByIdAndDelete(articleId)
+    
       const result = await service.deleteArticle(articleId)
       return res.status(200).json(result);
   } catch (err) {
