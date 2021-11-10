@@ -11,8 +11,14 @@ const UserSchema = new Schema({
     },
     createdAt: {type: Date, default: new Date()},
     numberOfArticles: {type:Number, default:0},
-    articles: [{type:ObjectId,ref:"Article"}],
+    articles: [{type:ObjectId,ref:"Article"}] ,
     nickname: {type:String}
+});
+
+
+//delete reletet articles to User
+UserSchema.pre('remove', function(next) {
+    this.model('Article').remove({ owner: this._id }, next);
 });
 
 module.exports = mongoose.model('User', UserSchema);

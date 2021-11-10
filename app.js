@@ -10,6 +10,7 @@ const app = express();
 const mongoose = require('mongoose');
 const dev_db_url = 'mongodb+srv://1234qwerty:1234qwerty@cluster0.iajav.mongodb.net/myDatabase?retryWrites=true&w=majority';
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.set('useCreateIndex', true);
 
 const dbOptions = { useUnifiedTopology: true, useNewUrlParser: true};
 mongoose.connect(mongoDB, dbOptions);
