@@ -1,6 +1,6 @@
 const errorHendler = require('../config/errorHelper');
 const User = require('../models/user')
-const ArticleModel = require('../models/article')
+const Article = require('../models/article')
 
 async function createUser(data) {
     const existingUser = await User.findOne({firstName: data.firstName,  lastName: data. lastName});
@@ -27,7 +27,7 @@ async function getUser (id){
 }
 
 async function deleteUserAndArticles(id){
-    const user = await    User.findById(id, function (err, doc) {
+    const user = await User.findById(id, function (err, doc) {
         if (err) {
       console.log(err);
         }
@@ -36,7 +36,17 @@ async function deleteUserAndArticles(id){
     if (!user) {
         throw errorHendler.notFound('User doesn`t exist or deleted')
      }
-   //  await ArticleModel.remove( { owner: id })  
      return user
 }
-    module.exports = {createUser, updateUser, getUser, deleteUserAndArticles}
+
+   async function getUserArticles (id) {
+       await getUser(id)
+       const articles = await Article.find({owner:id})
+       if (!articles){
+         throw errorHendler.notFound('No releted articles')
+       }
+       return articles
+   }
+
+
+    module.exports = {createUser, updateUser, getUser, deleteUserAndArticles, getUserArticles}

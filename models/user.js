@@ -3,15 +3,26 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
 const UserSchema = new Schema({
-    firstName: {type:String,min:4,max:50,required:true},
-    lastName: {type:String,min:3,max:60,required:true},
+    firstName: {
+                type:String,
+                minlength: [4, 'Must be at least 4 symbols, got {VALUE}'],
+                maxlength:50,
+                required:[true , 'Need name'],
+                
+                },
+    lastName: {
+               type:String,
+               minlength: [3, 'Must be at least 3 symbols, got {VALUE}'],
+               maxlength:60,
+               required:[true , 'last name']},
     role:{
         type: String,
         enum: ['admin','writer','guest']
     },
-    createdAt: {type: Date, default: new Date()},
+    createdAt: {type: Date, 
+                default: new Date()},
     numberOfArticles: {type:Number, default:0},
-    articles: [{type:ObjectId,ref:"Article"}] ,
+   // articles: [{type:ObjectId,ref:"Article"}] ,
     nickname: {type:String}
 });
 

@@ -9,6 +9,7 @@ class ProjectError extends Error {
 }
 
 module.exports.serverError = (err) => {
+
   const error = new ProjectError('SERVER_ERROR')
   if (err) error.message = err
   error.code = 500

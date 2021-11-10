@@ -9,8 +9,17 @@ module.exports = (app) => {
     return next(err)
   })
 
-  // error handler
+  // error handler // add valiation error, doesn't look good but works =)
   app.use((err, req, res, next) => {
+   if (err.message.includes('Article validation failed')||err.message.includes('User validation failed')){
+    const error = {
+      code: 422,
+      error: err.error,
+      message: err.message
+    }
+    res.status(error.code).json(error)
+   } else{
+
     const error = {
       code: err.code || 500,
       error: err.error,
@@ -21,5 +30,6 @@ module.exports = (app) => {
     console.log(error.error ? error.error : '')
     console.log('-----------------------------')
     res.status(error.code).json(error)
+  }
   })
 }
